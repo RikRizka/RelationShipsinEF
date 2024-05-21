@@ -1,0 +1,47 @@
+﻿@model OneToManyDemo.Models.ViewModels.BoekenViewModel
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Nieuw Boek Toevoegen</a>
+</p>
+<form asp-action="Filters" asp-controller="Boeken" method="get">
+    <select asp-for="GeselecteerdeAuteurId" asp-items="@(new SelectList(Model.Auteurs,"AuteurId","Naam" ))" class="form-control">
+        <option value="">Selecteer een Auteur</option>
+    </select>
+    <button type="submit" class="btn btn-primary">Filter</button>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Titel</th>
+            <th>Auteur</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var boek in Model.Boeken)
+        {
+            <tr>
+                <td>@boek.Titel</td>
+                <td>@boek.AuteurNaam</td>
+                <td>
+                    <b>
+                        @Html.ActionLink("Edit", "Edit", new { Id = boek.BoekId })
+                        @Html.ActionLink("Details", "Details", new { Id = boek.BoekId })
+                        @Html.ActionLink("Delete", "Delete", new { Id = boek.BoekId })<b />
+                </td>
+            </tr>
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <b>
+                    <i>Aantal boeken: @Model.Boeken.Count</i>
+                </b>
+            </td>
+        </tr>
+    </tfoot>
+
+</table>
+  
